@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags always come first -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.4/css/bootstrap.min.css" integrity="2hfp1SzUoho7/TsGGGDaFdsuuDL0LX2hnUp6VkX3CUQ2K4K+xjboZdsXyp4oUHZj" crossorigin="anonymous">
+	<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+	<style>
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 150px;
+  height: 30px;
+
+}
+
+.switch input {display:none;}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: orange;
+  border:2px solid red;
+  -webkit-transition: .5s;
+  transition: .5s;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 26px;
+  width: 20px;
+
+  background-color: black;
+  -webkit-transition: .5s;
+  transition: .5s;
+}
+
+input:checked + .slider {
+  background-color: green;
+ 
+}
+
+input:checked + .slider:before {
+  -webkit-transform: translateX(126px);
+  -ms-transform: translateX(126px);
+  transform: translateX(126px);
+}
+#cartDetail {
+	width:550px;
+	position: absolute;
+    right: 5px;
+    top: 60px;
+    z-index: 1;
+	display:none;
+}
+#snackbar {
+    visibility: hidden;
+    min-width: 250px;
+    margin-left: -125px;
+    background-color: #333;
+    color: #fff;
+    text-align: center;
+    border-radius: 2px;
+    padding: 16px;
+    position: fixed;
+    z-index: 1;
+    left: 50%;
+    bottom: 30px;
+    font-size: 17px;
+}
+
+#snackbar.show {
+    visibility: visible;
+    -webkit-animation: fadein 0.5s, fadeout 0.5s 2.5s;
+    animation: fadein 0.5s, fadeout 0.5s 2.5s;
+}
+
+@-webkit-keyframes fadein {
+    from {bottom: 0; opacity: 0;}
+    to {bottom: 30px; opacity: 1;}
+}
+
+@keyframes fadein {
+    from {bottom: 0; opacity: 0;}
+    to {bottom: 30px; opacity: 1;}
+}
+
+@-webkit-keyframes fadeout {
+    from {bottom: 30px; opacity: 1;}
+    to {bottom: 0; opacity: 0;}
+}
+
+@keyframes fadeout {
+    from {bottom: 30px; opacity: 1;}
+    to {bottom: 0; opacity: 0;}
+}
+</style>
+  </head>
+  <body>
+		   <nav class="navbar navbar-dark bg-inverse">
+				<a class="navbar-brand" href="#">Dipper</a>
+				<div id="cart" style="cursor:pointer;" class="pull-xs-right"><i class="material-icons">add_shopping_cart</i><span class="h4">Cart<sup><span id="cartItem" class="tag tag-pill tag-success"></span></sup></span></div>
+				
+			</nav>
+				<div class="row">.</div>
+			<div class="row">
+			<div class="col-xs-1"></div>
+			
+			<!-- Toggle Switch is refer from W3School.com -->
+			<div class="col-xs-2">
+					<div class="h3">Toggle Switch</div>
+					<label class="switch">
+					  <input type="checkbox"/>
+					  <div class="slider"><span class="bg-inverse" id="sliderText"><strong><center>PER TON</center></strong></span></div>
+					</label>
+			</div>
+			<!-- Card is Refer from bootstrap v4 :  http://v4-alpha.getbootstrap.com/components/card/ -->
+				<div class="col-xs-3">
+					<div class="card text-xs-center">
+						<div class="card-block card-inverse card-info text-xs-center">
+							<h5 class="card-title">Sofit Chocolate Milk</h5>
+						</div>
+						<img id="img1" src="choco.jpg" width="120px" alt="Card image" style="position:relative">
+						<div class="card-block"style="background-color:#F0F0F0;">
+								<p class="card-text h5" id="product1Name">Terapack 1.0 Lt</p>
+								<p class="h4"><span class="tag tag-success" id="product1DisValue"></span> <span class="tag tag-danger" id="product1Value"></span></p>
+							<div class="row">
+								<div class="col-xs-4">
+								<input class="form-control" type="number" id="product1Item" value="1"  min="1" onchange="Change(1)"/>	
+								</div>	
+
+								<div class="col-xs-7">
+								  <select class="form-control" id="product1Qty" onchange="Change(1)">
+									<option value="1">1.0 Lt</option>
+									<option value="0.2">200.0 ML</option>
+								  </select>	
+								</div>								
+							</div>				
+						</div>
+						<div class="card-danger">
+							<button type="button" id="btn1" class="btn btn-danger btn-md btn-block"><i class="material-icons">add_shopping_cart</i><span class="h5">BUY</span></button>
+						</div>
+					</div>
+				</div>
+				<div class="col-xs-3">
+					<div class="card text-xs-center">
+						<div class="card-block card-inverse card-info text-xs-center">
+							<h5 class="card-title">Sofit Kesar Pista Milk</h5>
+						</div>
+						<img id="img2" src="kesar.jpg" width="120px" alt="Card image" style="position:relative">
+						<div class="card-block"style="background-color:#F0F0F0;">
+								<p class="card-text h5" id="product2Name">Terapack 1.0 Lt</p>
+								<p class="h4"><span class="tag tag-success" id="product2DisValue"></span> <span class="tag tag-danger" id="product2Value"></span></p>
+							<div class="row">
+								<div class="col-xs-4">
+								<input class="form-control" type="number" id="product2Item" value="1"  min="1" onchange="Change(2)"/>	
+								</div>	
+
+								<div class="col-xs-7">
+								  <select class="form-control" id="product2Qty" onchange="Change(2)">
+									<option value="1">1.0 Lt</option>
+									<option value="0.2">200.0 ML</option>
+								  </select>	
+								</div>								
+							</div>
+						</div>
+						<div class="card-danger">
+							<button type="button" id="btn2" class="btn btn-danger btn-md btn-block"><i class="material-icons">add_shopping_cart</i><span class="h5">BUY</span></button>
+						</div>
+					</div>
+				</div>		
+				<div class="col-xs-3"></div>
+			</div>	
+			
+  <!-- this code is for shopping cart. -->	
+<div id="cartDetail">
+
+</div>
+<div id="snackbar"></div>
+    <!-- jQuery first, then Tether, then Bootstrap JS. -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.0.0/jquery.min.js" integrity="sha384-THPy051/pYDQGanwU6poAc/hOdQxjnOEXzbT+OuUAFqNqFjL+4IGLBgCJC3ZOShY" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.2.0/js/tether.min.js" integrity="sha384-Plbmg8JY28KFelvJVai01l8WyZzrYWG825m+cZ0eDDS1f7d/js6ikvy1+X+guPIB" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.4/js/bootstrap.min.js" integrity="VjEeINv9OSwtWFLAtmc4JCtEJXXBub00gtSnszmspDLCtC0I4z4nqz7rEFbIZLLU" crossorigin="anonymous"></script>
+<script>
+			// Dummy Data for both the products
+			var product1={Price:99,Discount:4};
+			var product2={Price:99,Discount:9};
+			var cartItem=0;
+			var cartArray=[];
+$(function(){
+		// this section initialised all the value of the product to default value as dummy value at every time we refresh the page
+			$("#product1DisValue").html("&#8377; "+(product1.Price-product1.Discount).toFixed(1));
+			$("#product1Value").html("<s>&#8377; "+product1.Price.toFixed(1)+"</s>");
+			$("#product2DisValue").html("&#8377; "+(product2.Price-product2.Discount).toFixed(1));
+			$("#product2Value").html("<s>&#8377; "+product2.Price.toFixed(1)+"</s>");
+
+		// this section is for toogle checbox.
+        $('input[type="checkbox"]').click(function(){
+            if($(this).prop("checked") == true){
+				$(this).parent().find("center").text("PER TRUCK");
+            }
+            else if($(this).prop("checked") == false){
+                $(this).parent().find("center").text("PER TON");
+            }
+        });
+		//this function show the shopping cart when mouse enters in cart
+		$("#cart").mouseenter(function(){
+						cartDataShow();
+		});
+		// this is for product button
+		$("#btn1").click(function(){
+			$("#cartDetail").hide("slow");
+			var newleft=$("#cart").offset().left-$("#img1").offset().left;
+			var newtop=$("#cart").offset().top-$("#img1").offset().top;
+			$("#img1").animate({left:newleft,top:newtop,width: '0px'},"slow", function(){
+			$("#img1").animate({left:newleft*0,top:newtop*0,width: '120px'},"slow");
+			if($("#product1Qty").val()==1)
+				addToCart("Sofit Chocolate Milk Terapack 1.0 Lt",$("#product1Item").val(),(product1.Price-product1.Discount).toFixed(2));
+			else
+				addToCart("Sofit Chocolate Milk Smallpack 200.0 ML",$("#product1Item").val(),((product1.Price*0.2)-(product1.Discount*0.2)).toFixed(2));
+			});
+		});
+			// this is for product button
+		$("#btn2").click(function(){
+			$("#cartDetail").hide("slow");
+			var newleft=$("#cart").offset().left-$("#img2").offset().left;
+			var newtop=$("#cart").offset().top-$("#img2").offset().top;
+			$("#img2").animate({left:newleft,top:newtop,width: '0px'},"slow", function(){
+			$("#img2").animate({left:newleft*0,top:newtop*0,width: '120px'},"slow");
+			if($("#product2Qty").val()==1)
+				addToCart("Sofit Kesar Pista Milk Terapack 1.0 Lt",$("#product2Item").val(),(product2.Price-product2.Discount).toFixed(2));
+			else
+				addToCart("Sofit Kesar Pista Milk Smallpack 200.0 ML",$("#product2Item").val(),((product2.Price*0.2)-(product2.Discount*0.2)).toFixed(2));
+		
+			});
+		});
+});
+		//this function calculate the values when any of the product no. of items is changed
+		function Change(productId){
+			$("#cartDetail").hide("slow");
+			if(document.getElementById('product'+productId+'Item').value==0){
+				document.getElementById('product'+productId+'Item').value=1;
+				showSnackBar("Quantity Can't be Zero");
+			}else{
+			if(productId==1){
+					document.getElementById('product'+productId+'Value').innerHTML="<s>&#8377; "+((product1.Price*document.getElementById('product'+productId+'Qty').value)*document.getElementById('product'+productId+'Item').value).toFixed(1)+"</s>";
+					document.getElementById('product'+productId+'DisValue').innerHTML="&#8377; "+(((product1.Price*document.getElementById('product'+productId+'Qty').value)-(product1.Discount*document.getElementById('product'+productId+'Qty').value))*document.getElementById('product'+productId+'Item').value).toFixed(1);
+					
+					if((document.getElementById('product'+productId+'Qty').value)<1)
+						document.getElementById('product'+productId+'Name').innerHTML="Smallpack 200.0 ML";
+					else
+						document.getElementById('product'+productId+'Name').innerHTML="Terapack 1.0 Lt";
+			
+			}else if(productId==2){
+					document.getElementById('product'+productId+'Value').innerHTML="<s>&#8377; "+((product2.Price*document.getElementById('product'+productId+'Qty').value)*document.getElementById('product'+productId+'Item').value).toFixed(1)+"</s>";
+					document.getElementById('product'+productId+'DisValue').innerHTML="&#8377; "+(((product2.Price*document.getElementById('product'+productId+'Qty').value)-(product2.Discount*document.getElementById('product'+productId+'Qty').value))*document.getElementById('product'+productId+'Item').value).toFixed(1);
+					
+					if((document.getElementById('product'+productId+'Qty').value)<1)
+						document.getElementById('product'+productId+'Name').innerHTML="Smallpack 200.0 ML";
+					else
+						document.getElementById('product'+productId+'Name').innerHTML="Terapack 1.0 Lt";
+			
+			}}
+		}
+		//this function shows the snackbar at the bottom of the screen
+		function showSnackBar(msg) {
+			document.getElementById('snackbar').innerHTML=msg;
+			var x = document.getElementById("snackbar")
+			x.className = "show";
+			setTimeout(function(){ x.className = x.className.replace("show", ""); }, 2000);
+		}
+		 // this is function which adds the values to the cart array
+		function addToCart(proName,qty,rate){
+				var found=0;
+						for(var i=0;i<cartArray.length;i++){
+								if(cartArray[i].rate==rate)
+									found=1;
+						}
+						if(found==1)
+						showSnackBar("Item Already added to Shopping Cart");
+						else{
+							$("#cartItem").text(++cartItem);
+							cartArray[cartArray.length]={productName:proName,qty:qty,rate:rate};
+							showSnackBar("1 Item is added to Shopping Cart");
+						}
+			document.getElementById('product1Qty').value=1;
+			document.getElementById('product2Qty').value=1;
+			document.getElementById('product1Item').value=1;
+			document.getElementById('product2Item').value=1;
+			Change(1);
+			Change(2);
+		}
+		//this function is clearing the cart
+		function clearCart(){
+			cartArray=[];
+			 $("#cartDetail").hide("slow");
+			$("#cartItem").text("");
+			cartItem=0;
+			showSnackBar("Cleared Shopping Cart");
+		}
+		//this is for closing the cart
+		function closeCart(){
+			$("#cartDetail").hide("slow");
+		}
+		function orderPlace(){
+			showSnackBar("Wait! Placing Order is in Construction");
+		}
+		function removeItem(index){
+		 cartArray.splice(index, 1);
+		 showSnackBar("Item removed from Shopping Cart");
+		 $("#cartItem").text(--cartItem);
+		 $("#cartDetail").hide("slow");
+		 cartDataShow();
+		}
+		
+		function cartDataShow(){
+					if(cartArray.length==0){
+					$("#cartDetail").html("");
+					showSnackBar("Shopping Cart is Empty");
+				}else{
+					var data='<table style="text-align:center" class="table table-sm table-hover bg-info"><thead class="table-inverse"><tr><th class="h1" colspan="6"><center>Shopping Cart</center></th></tr><tr><th>#</th><th>Product Name</th><th>Qty</th><th>Amount</th><th>Subtotal</th><th></th></tr></thead><tbody id="cartData">';
+					var totalAmt=0000;
+					for(var i=0;i<cartArray.length;i++){
+						data+='<tr><th scope="row">'+(i+1)+'</th><td>'+cartArray[i].productName+'</td><td>'+cartArray[i].qty+'</td><td>&#8377; '+cartArray[i].rate+'</td><td>&#8377; '+(cartArray[i].qty*cartArray[i].rate).toFixed(2)+'</td><td><button onClick="removeItem('+i+')" class="btn btn-danger btn-sm">Remove</button></td></tr>';
+						totalAmt+=(cartArray[i].qty*cartArray[i].rate);
+					}
+					data+='<tr class="bg-success"><td></td><td></td><th colspan="2">Total Amount</th><th colspan="2" class="h2">&#8377; '+totalAmt.toFixed(2)+'</th></tr><tr style="cursor:pointer" onClick="orderPlace()" class="bg-warning"><th colspan="6"><center>CONTINUE PLACE ORDER</center></th></tr><tr style="cursor:pointer" onClick="clearCart()" class="bg-danger"><th colspan="6"><center>Clear Full Shopping Cart</center></th></tr><tr style="cursor:pointer" onClick="closeCart()" class="bg-info"><th colspan="6"><center>Hide Shopping Cart</center></th></tr></tbody></table>';
+					$("#cartDetail").html(data);
+					$("#cartDetail").show("slow");
+				}
+		}
+		
+</script>
+</body>		
+</html>
